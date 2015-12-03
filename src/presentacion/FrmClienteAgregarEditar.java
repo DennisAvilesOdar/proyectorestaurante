@@ -1,7 +1,11 @@
 package presentacion;
 
+import util.Funciones;
+
 public class FrmClienteAgregarEditar extends javax.swing.JDialog {
 
+    public int accion = 0;
+    
     public FrmClienteAgregarEditar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.setLocationRelativeTo(null);
@@ -11,7 +15,7 @@ public class FrmClienteAgregarEditar extends javax.swing.JDialog {
         this.txtNombreCompleto.setEnabled(false);
         
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -26,8 +30,6 @@ public class FrmClienteAgregarEditar extends javax.swing.JDialog {
         txtCodigo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         chkConvenio = new javax.swing.JCheckBox();
-        jLabel10 = new javax.swing.JLabel();
-        txtDireccion = new javax.swing.JTextField();
         rdoPersonaNatural = new javax.swing.JRadioButton();
         rdoEmpresa = new javax.swing.JRadioButton();
         jPanel4 = new javax.swing.JPanel();
@@ -42,10 +44,12 @@ public class FrmClienteAgregarEditar extends javax.swing.JDialog {
         txtNombreCompleto = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
         jToolBar1 = new javax.swing.JToolBar();
-        btnGrabar = new javax.swing.JButton();
         jToolBar2 = new javax.swing.JToolBar();
         btnSalir = new javax.swing.JButton();
+        btnGrabar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -89,11 +93,6 @@ public class FrmClienteAgregarEditar extends javax.swing.JDialog {
         chkConvenio.setBackground(new java.awt.Color(255, 255, 204));
         chkConvenio.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
         chkConvenio.setText("Convenio");
-
-        jLabel10.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
-        jLabel10.setText("Dirección:");
-
-        txtDireccion.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
 
         rdoPersonaNatural.setBackground(new java.awt.Color(255, 255, 204));
         buttonGroup2.add(rdoPersonaNatural);
@@ -206,36 +205,48 @@ public class FrmClienteAgregarEditar extends javax.swing.JDialog {
 
         txtTelefono.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
 
+        jLabel11.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
+        jLabel11.setText("Email");
+
+        txtEmail.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(rdoPersonaNatural))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(rdoEmpresa)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(chkConvenio))))
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(rdoPersonaNatural))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(rdoEmpresa)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(chkConvenio))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(77, 77, 77)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(56, 56, 56))
         );
         jPanel3Layout.setVerticalGroup(
@@ -261,25 +272,14 @@ public class FrmClienteAgregarEditar extends javax.swing.JDialog {
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(83, 83, 83))
+                    .addComponent(jLabel11)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(88, 88, 88))
         );
 
         jToolBar1.setBackground(new java.awt.Color(255, 255, 204));
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
-
-        btnGrabar.setBackground(new java.awt.Color(255, 255, 204));
-        btnGrabar.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
-        btnGrabar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/[Boton] Guardar.png"))); // NOI18N
-        btnGrabar.setToolTipText("Grabar");
-        btnGrabar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGrabarActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(btnGrabar);
 
         jToolBar2.setBackground(new java.awt.Color(255, 255, 204));
         jToolBar2.setFloatable(false);
@@ -294,7 +294,16 @@ public class FrmClienteAgregarEditar extends javax.swing.JDialog {
                 btnSalirActionPerformed(evt);
             }
         });
-        jToolBar2.add(btnSalir);
+
+        btnGrabar.setBackground(new java.awt.Color(255, 255, 204));
+        btnGrabar.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        btnGrabar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/[Boton] Guardar.png"))); // NOI18N
+        btnGrabar.setToolTipText("Grabar");
+        btnGrabar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGrabarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -306,7 +315,11 @@ public class FrmClienteAgregarEditar extends javax.swing.JDialog {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSalir)
+                        .addGap(350, 350, 350)
+                        .addComponent(btnGrabar))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -314,11 +327,15 @@ public class FrmClienteAgregarEditar extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btnSalir)
+                        .addComponent(btnGrabar, javax.swing.GroupLayout.Alignment.TRAILING)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -341,10 +358,77 @@ public class FrmClienteAgregarEditar extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
-
+        if (this.validar()){ //ha pasado la validación
+            int r = Funciones.mensajeConfirmacion(
+                        "Esta seguro de grabar los datos", 
+                        "Confirme"
+                    );
+            
+            if (r==0){ //hizo clic en el boton si
+                this.accion = 1;
+                this.dispose();
+            }
+            
+        }
     }//GEN-LAST:event_btnGrabarActionPerformed
-
+    
+    private boolean validar(){
+        if(rdoEmpresa.isSelected()){
+            if (this.txtRUC.getText().isEmpty()){
+                Funciones.mensajeAdvertencia(
+                        "Falta completar el campo Ruc", 
+                        Funciones.NOMBRE_SOFTWARE
+                );
+                this.txtRUC.requestFocus();
+                return false;
+            }
+            if (this.txtEmpresa.getText().isEmpty()){
+                Funciones.mensajeAdvertencia(
+                        "Falta completar el campo empresa", 
+                        Funciones.NOMBRE_SOFTWARE
+                );
+                this.txtEmpresa.requestFocus();
+                return false;
+            }
+        }else{
+            if (this.txtDNI.getText().isEmpty()){
+                Funciones.mensajeAdvertencia(
+                        "Falta completar el campo Ruc", 
+                        Funciones.NOMBRE_SOFTWARE
+                );
+                this.txtDNI.requestFocus();
+                return false;
+            }
+            if (this.txtNombreCompleto.getText().isEmpty()){
+                Funciones.mensajeAdvertencia(
+                        "Falta completar el campo empresa", 
+                        Funciones.NOMBRE_SOFTWARE
+                );
+                this.txtNombreCompleto.requestFocus();
+                return false;
+            }
+        }
+        if (this.txtTelefono.getText().isEmpty()){
+            Funciones.mensajeAdvertencia(
+                    "Falta completar el campo Telefono", 
+                    Funciones.NOMBRE_SOFTWARE
+            );
+            this.txtTelefono.requestFocus();
+            return false;
+        }
+        if (this.txtEmail.getText().isEmpty()){
+            Funciones.mensajeAdvertencia(
+                    "Falta completar el campo Email", 
+                    Funciones.NOMBRE_SOFTWARE
+            );
+            this.txtEmail.requestFocus();
+            return false;
+        }
+        return true; //si ha pasado la validación
+    }
+    
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.accion = 0;
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
@@ -373,9 +457,9 @@ public class FrmClienteAgregarEditar extends javax.swing.JDialog {
     private javax.swing.JButton btnSalir;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JCheckBox chkConvenio;
+    public javax.swing.JCheckBox chkConvenio;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
@@ -390,14 +474,14 @@ public class FrmClienteAgregarEditar extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
-    private javax.swing.JRadioButton rdoEmpresa;
-    private javax.swing.JRadioButton rdoPersonaNatural;
+    public javax.swing.JRadioButton rdoEmpresa;
+    public javax.swing.JRadioButton rdoPersonaNatural;
     public javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtDNI;
-    private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtEmpresa;
-    private javax.swing.JTextField txtNombreCompleto;
-    private javax.swing.JTextField txtRUC;
-    private javax.swing.JTextField txtTelefono;
+    public javax.swing.JTextField txtDNI;
+    public javax.swing.JTextField txtEmail;
+    public javax.swing.JTextField txtEmpresa;
+    public javax.swing.JTextField txtNombreCompleto;
+    public javax.swing.JTextField txtRUC;
+    public javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }

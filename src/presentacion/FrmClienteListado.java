@@ -1,12 +1,55 @@
 package presentacion;
 
+import java.awt.Dimension;
+import java.sql.ResultSet;
+import logica.Cliente;
+import util.Funciones;
+
 public class FrmClienteListado extends javax.swing.JInternalFrame {
 
+    private ResultSet resultado;
+    
     public FrmClienteListado() {
         initComponents();
         this.setLocation(250, 60);
+        cargarCamposBusqueda();
+        cargarTabla();
+        listar();
     }
-
+    private void cargarCamposBusqueda(){
+        String campos[] = new Cliente().obtenerCamposFiltro();
+        
+        cboBusqueda.removeAllItems();
+        for (int i = 0; i < campos.length; i++) {
+            cboBusqueda.addItem( campos[i] );
+        }
+    }
+    
+    private void cargarTabla(){
+        try {
+            this.resultado = new Cliente().listar();
+        } catch (Exception e) {
+            Funciones.mensajeError(e.getMessage(), Funciones.NOMBRE_SOFTWARE);
+        }
+    }
+    
+    private void listar(){
+        try {
+            String alineacion[] = {"C","C","C","C","C","C","C","C","C"};
+            int anchoColumnas[] = {100,100,100,100,100,100,100,100,100};
+            
+            Funciones.llenarTablaBusqueda(
+                    tblListado, 
+                    resultado, //Resultset
+                    anchoColumnas, 
+                    alineacion, 
+                    this.cboBusqueda.getSelectedItem().toString(), 
+                    this.txtValorBusqueda.getText());
+            
+        } catch (Exception e) {
+            Funciones.mensajeError(e.getMessage(), Funciones.NOMBRE_SOFTWARE);
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -44,6 +87,23 @@ public class FrmClienteListado extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         setTitle("Listado de clientes");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/[Cabecera] Clientes.jpg"))); // NOI18N
 
@@ -84,11 +144,11 @@ public class FrmClienteListado extends javax.swing.JInternalFrame {
             }
         });
         txtValorBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtValorBusquedaKeyReleased(evt);
-            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtValorBusquedaKeyTyped(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtValorBusquedaKeyReleased(evt);
             }
         });
         tbOpciones.add(txtValorBusqueda);
@@ -238,7 +298,7 @@ public class FrmClienteListado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtValorBusquedaActionPerformed
 
     private void txtValorBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorBusquedaKeyReleased
-
+        listar();
     }//GEN-LAST:event_txtValorBusquedaKeyReleased
 
     private void txtValorBusquedaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorBusquedaKeyTyped
@@ -249,18 +309,163 @@ public class FrmClienteListado extends javax.swing.JInternalFrame {
         FrmClienteAgregarEditar obj = new FrmClienteAgregarEditar(null, true);
         obj.setTitle("Agregar un cliente");
         obj.setVisible(true);
+        
+        if (obj.accion == 1){ //hizo clic en grabar
+            try {
+                String tipo = null;
+                String convenio = null;
+                Cliente objC = new Cliente();
+                objC.setDni(obj.txtDNI.getText() );
+                objC.setNombre_completo(obj.txtNombreCompleto.getText());
+                objC.setRuc(obj.txtRUC.getText());
+                objC.setRazon_social(obj.txtEmpresa.getText());
+                objC.setTelefono(obj.txtTelefono.getText());
+                objC.setEmail(obj.txtEmail.getText());
+                if(obj.rdoEmpresa.isSelected()){
+                    tipo = "E";
+                }else{
+                    tipo = "N";
+                }
+                if(obj.chkConvenio.isSelected()){
+                    convenio = "S";
+                }else{
+                    convenio = "N";
+                }
+                objC.setTipo_cliente(tipo);
+                objC.setConvenio(convenio);
+                
+                if (objC.agregar()){
+                    this.cargarTabla();
+                    this.listar();
+                }
+            } catch (Exception e) {
+                Funciones.mensajeError(
+                        e.getMessage(), 
+                        Funciones.NOMBRE_SOFTWARE
+                );
+            }
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        int fila = this.tblListado.getSelectedRow();
+        if (fila < 0 ){
+            Funciones.mensajeError(
+                    "Debe seleccionar una fila", 
+                    Funciones.NOMBRE_SOFTWARE
+                );
+            return;
+        }
+        
+        int codigo =Integer.parseInt(this.tblListado.getValueAt(fila, 0).toString());
+        
+        Cliente objC = new Cliente();
+        
+        try {
+            ResultSet resultado = objC.leerDatos(codigo);
+            if (resultado.next()){
+                FrmClienteAgregarEditar objFrm = new FrmClienteAgregarEditar(null, true);
+                objFrm.setTitle("Editar");
+                objFrm.txtCodigo.setText(String.valueOf( resultado.getInt("codigo_cliente")));
+                objFrm.txtDNI.setText(resultado.getString("dni"));                
+                objFrm.txtNombreCompleto.setText(resultado.getString("nombre_completo"));
+                objFrm.txtRUC.setText(resultado.getString("ruc"));
+                objFrm.txtEmpresa.setText(resultado.getString("razon_social"));
+                objFrm.txtTelefono.setText(resultado.getString("telefono"));
+                objFrm.txtEmail.setText(resultado.getString("email"));
+                if(resultado.getString("tipo_cliente").equalsIgnoreCase("E")){
+                    objFrm.rdoEmpresa.setSelected(true);
+                    objFrm.rdoPersonaNatural.setSelected(false);
+                    objFrm.txtRUC.setEnabled(false);
+                    objFrm.txtEmpresa.setEnabled(false);
+                }else{
+                    objFrm.rdoPersonaNatural.setSelected(true);
+                    objFrm.rdoEmpresa.setSelected(false);
+                    objFrm.txtDNI.setEnabled(false);
+                    objFrm.txtNombreCompleto.setEnabled(false);
+                }
+                if(resultado.getString("convenio").equalsIgnoreCase("S")){
+                    objFrm.chkConvenio.setSelected(true);
+                }else{
+                    objFrm.chkConvenio.setSelected(false);
+                }
+                objFrm.setVisible(true);
+                
+                if (objFrm.accion == 1){
+                    Cliente obj = new Cliente();
+                    obj.setCodigo_cliente(Integer.parseInt( objFrm.txtCodigo.getText()));
+                    obj.setDni(objFrm.txtDNI.getText());
+                    obj.setNombre_completo(objFrm.txtNombreCompleto.getText());
+                    obj.setRuc(objFrm.txtRUC.getText());
+                    obj.setRazon_social(objFrm.txtEmpresa.getText());
+                    obj.setTelefono(objFrm.txtTelefono.getText());
+                    obj.setEmail(objFrm.txtEmail.getText());
+                    if(objFrm.rdoEmpresa.isSelected()){
+                        obj.setTipo_cliente("E");
+                    }else{
+                        obj.setTipo_cliente("N");
+                    }
+                    if(objFrm.chkConvenio.isSelected()){
+                        obj.setConvenio("S");
+                    }else{
+                        obj.setConvenio("N");
+                    }
 
+                    if (objC.editar()){
+                        this.cargarTabla();
+                        this.listar();
+                    }
+                }
+                
+            }   
+            
+        } catch (Exception e) {
+            Funciones.mensajeError(
+                    e.getMessage(), 
+                    Funciones.NOMBRE_SOFTWARE
+            );
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-
+        int fila = this.tblListado.getSelectedRow();
+        if (fila < 0 ){
+            Funciones.mensajeError(
+                    "Debe seleccionar una fila", 
+                    Funciones.NOMBRE_SOFTWARE
+                );
+            return;
+        }
+        
+        int codigo =Integer.parseInt(this.tblListado.getValueAt(fila, 0).toString());
+        
+        Cliente objC = new Cliente();
+        
+        int r = Funciones.mensajeConfirmacion(
+                "Esta seguro de eliminar el registro seleccionado", 
+                "Confirme"
+            );
+        if (r==0){ //si
+            try {
+                
+                objC.setCodigo_cliente(codigo);
+                
+                if (objC.eliminar()){
+                    this.cargarTabla();
+                    this.listar();
+                }
+            } catch (Exception e) {
+                Funciones.mensajeError(
+                        e.getMessage(), 
+                        Funciones.NOMBRE_SOFTWARE
+                );
+            }
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
-
+        this.cargarTabla();
+        this.listar();
     }//GEN-LAST:event_btnRefrescarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -272,6 +477,14 @@ public class FrmClienteListado extends javax.swing.JInternalFrame {
             this.btnEditar.doClick();
         }
     }//GEN-LAST:event_tblListadoMouseClicked
+
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+        this.cboBusqueda.setPreferredSize( new Dimension(130, 25) );
+        this.txtValorBusqueda.setPreferredSize( new Dimension(150, 25) );
+        
+        this.tbOpciones.add(cboBusqueda, 1);
+        this.tbOpciones.add(txtValorBusqueda, 2);
+    }//GEN-LAST:event_formInternalFrameActivated
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
