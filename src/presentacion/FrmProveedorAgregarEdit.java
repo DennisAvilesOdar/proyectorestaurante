@@ -21,15 +21,15 @@ public class FrmProveedorAgregarEdit extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
+        txtRuc = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtRuc = new javax.swing.JTextField();
         txtRazonSocial = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtRepresentanteLegal = new javax.swing.JTextField();
         jToolBar1 = new javax.swing.JToolBar();
         btnGuardar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
@@ -65,30 +65,29 @@ public class FrmProveedorAgregarEdit extends javax.swing.JDialog {
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
-        jLabel2.setText("Código:");
-
-        txtCodigo.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
-        txtCodigo.setEnabled(false);
-
-        jLabel5.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
-        jLabel5.setText("Ruc:");
-
-        jLabel6.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
-        jLabel6.setText("Razón Social");
+        jLabel2.setText("Ruc:");
 
         txtRuc.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
 
-        txtRazonSocial.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
+        jLabel5.setText("Razon_Social");
 
-        jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
-        jLabel7.setText("Dirección:");
+        jLabel6.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
+        jLabel6.setText("Direccion");
+
+        txtRazonSocial.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
 
         txtDireccion.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
-        jLabel8.setText("Teléfono:");
+        jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
+        jLabel7.setText("Telefono");
 
         txtTelefono.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
+
+        jLabel8.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
+        jLabel8.setText("Representante Legal");
+
+        txtRepresentanteLegal.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -100,7 +99,7 @@ public class FrmProveedorAgregarEdit extends javax.swing.JDialog {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtRepresentanteLegal, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(138, 138, 138))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -110,10 +109,10 @@ public class FrmProveedorAgregarEdit extends javax.swing.JDialog {
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtRuc, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtRuc, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -122,23 +121,23 @@ public class FrmProveedorAgregarEdit extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
                     .addComponent(txtRuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
+                    .addComponent(jLabel5)
                     .addComponent(txtRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
+                    .addComponent(jLabel6)
                     .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
+                    .addComponent(jLabel7)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtRepresentanteLegal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -230,17 +229,9 @@ public class FrmProveedorAgregarEdit extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
     private boolean validar(){
-        if (this.txtRuc.getText().isEmpty()){
-            Funciones.mensajeAdvertencia(
-                    "Falta completar el campo Ruc", 
-                    Funciones.NOMBRE_SOFTWARE
-            );
-            this.txtRuc.requestFocus();
-            return false;
-        }
         if (this.txtRazonSocial.getText().isEmpty()){
             Funciones.mensajeAdvertencia(
-                    "Falta completar el campo Razon Social", 
+                    "Falta completar el campo Ruc", 
                     Funciones.NOMBRE_SOFTWARE
             );
             this.txtRazonSocial.requestFocus();
@@ -248,7 +239,7 @@ public class FrmProveedorAgregarEdit extends javax.swing.JDialog {
         }
         if (this.txtDireccion.getText().isEmpty()){
             Funciones.mensajeAdvertencia(
-                    "Falta completar el campo Direccion", 
+                    "Falta completar el campo Razon Social", 
                     Funciones.NOMBRE_SOFTWARE
             );
             this.txtDireccion.requestFocus();
@@ -256,10 +247,18 @@ public class FrmProveedorAgregarEdit extends javax.swing.JDialog {
         }
         if (this.txtTelefono.getText().isEmpty()){
             Funciones.mensajeAdvertencia(
-                    "Falta completar el campo Telefono", 
+                    "Falta completar el campo Direccion", 
                     Funciones.NOMBRE_SOFTWARE
             );
             this.txtTelefono.requestFocus();
+            return false;
+        }
+        if (this.txtRepresentanteLegal.getText().isEmpty()){
+            Funciones.mensajeAdvertencia(
+                    "Falta completar el campo Telefono", 
+                    Funciones.NOMBRE_SOFTWARE
+            );
+            this.txtRepresentanteLegal.requestFocus();
             return false;
         }
         return true; //si ha pasado la validación
@@ -278,10 +277,10 @@ public class FrmProveedorAgregarEdit extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar jToolBar1;
-    public javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtRazonSocial;
-    private javax.swing.JTextField txtRuc;
-    private javax.swing.JTextField txtTelefono;
+    public javax.swing.JTextField txtDireccion;
+    public javax.swing.JTextField txtRazonSocial;
+    public javax.swing.JTextField txtRepresentanteLegal;
+    public javax.swing.JTextField txtRuc;
+    public javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }

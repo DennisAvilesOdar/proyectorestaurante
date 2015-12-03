@@ -295,14 +295,112 @@ public class FrmProveedorListado extends javax.swing.JInternalFrame {
         FrmProveedorAgregarEdit obj = new FrmProveedorAgregarEdit(null, true);
         obj.setTitle("Agregar un proveedor");
         obj.setVisible(true);
+        if (obj.accion == 1){ //hizo clic en grabar
+            try {
+                Proveedor objP = new Proveedor();
+                objP.setRuc_proveedor(obj.txtRuc.getText());
+                objP.setRazon_social(obj.txtRazonSocial.getText());
+                objP.setDireccion(obj.txtDireccion.getText());
+                objP.setTelefono(obj.txtTelefono.getText());
+                objP.setRepresentante_legal(obj.txtRepresentanteLegal.getText());
+                if (objP.agregar()){
+                    this.cargarTabla();
+                    this.listar();
+                }
+            } catch (Exception e) {
+                Funciones.mensajeError(
+                        e.getMessage(), 
+                        Funciones.NOMBRE_SOFTWARE
+                );
+            }
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-
+        int fila = this.tblListado.getSelectedRow();
+        if (fila < 0 ){
+            Funciones.mensajeError(
+                    "Debe seleccionar una fila", 
+                    Funciones.NOMBRE_SOFTWARE
+                );
+            return;
+        }
+        
+        String ruc = this.tblListado.getValueAt(fila, 0).toString();
+        
+        Proveedor objP = new Proveedor();
+        
+        try {
+            ResultSet resultado = objP.leerDatos(ruc);
+            if (resultado.next()){
+                FrmProveedorAgregarEdit objFrm = new FrmProveedorAgregarEdit(null, true);
+                objFrm.setTitle("Editar");
+                objFrm.txtRuc.setText(resultado.getString("ruc_proveedor"));
+                objFrm.txtRazonSocial.setText(resultado.getString("razon_social"));
+                objFrm.txtDireccion.setText(resultado.getString("direccion"));
+                objFrm.txtTelefono.setText(resultado.getString("telefono"));
+                objFrm.txtRepresentanteLegal.setText(resultado.getString("representante_legal"));
+                objFrm.setVisible(true);
+                
+                if (objFrm.accion == 1){
+                    Proveedor obj = new Proveedor();
+                    obj.setRuc_proveedor(objFrm.txtRuc.getText());
+                    obj.setRazon_social(objFrm.txtRazonSocial.getText());
+                    obj.setDireccion(objFrm.txtDireccion.getText());
+                    obj.setTelefono(objFrm.txtTelefono.getText());
+                    obj.setRepresentante_legal(objFrm.txtRepresentanteLegal.getText());
+                    
+                    if (obj.editar()){
+                        this.cargarTabla();
+                        this.listar();
+                    }
+                }
+                
+            }   
+            
+        } catch (Exception e) {
+            Funciones.mensajeError(
+                    e.getMessage(), 
+                    Funciones.NOMBRE_SOFTWARE
+            );
+        }
+        
+    
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-
+        int fila = this.tblListado.getSelectedRow();
+        if (fila < 0 ){
+            Funciones.mensajeError(
+                    "Debe seleccionar una fila", 
+                    Funciones.NOMBRE_SOFTWARE
+                );
+            return;
+        }
+        
+        String ruc = this.tblListado.getValueAt(fila, 0).toString();
+        
+        Proveedor objP = new Proveedor();
+        
+        int r = Funciones.mensajeConfirmacion(
+                "Esta seguro de eliminar el registro seleccionado", 
+                "Confirme"
+            );
+        if (r==0){ //si
+            try {
+                
+                objP.setRuc_proveedor(ruc);
+                if (objP.eliminar()){
+                    this.cargarTabla();
+                    this.listar();
+                }
+            } catch (Exception e) {
+                Funciones.mensajeError(
+                        e.getMessage(), 
+                        Funciones.NOMBRE_SOFTWARE
+                );
+            }
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
