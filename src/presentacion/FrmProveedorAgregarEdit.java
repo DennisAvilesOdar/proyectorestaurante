@@ -1,7 +1,11 @@
 package presentacion;
 
+import util.Funciones;
+
 public class FrmProveedorAgregarEdit extends javax.swing.JDialog {
 
+    public int accion = 0;
+    
     public FrmProveedorAgregarEdit(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -147,6 +151,11 @@ public class FrmProveedorAgregarEdit extends javax.swing.JDialog {
         btnGuardar.setFocusable(false);
         btnGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btnGuardar);
         jToolBar1.add(jSeparator1);
 
@@ -155,6 +164,11 @@ public class FrmProveedorAgregarEdit extends javax.swing.JDialog {
         btnSalir.setFocusable(false);
         btnSalir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnSalir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btnSalir);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -195,6 +209,61 @@ public class FrmProveedorAgregarEdit extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        if (this.validar()){ //ha pasado la validación
+            int r = Funciones.mensajeConfirmacion(
+                        "Esta seguro de grabar los datos", 
+                        "Confirme"
+                    );
+            
+            if (r==0){ //hizo clic en el boton si
+                this.accion = 1;
+                this.dispose();
+            }
+            
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.accion = 0;
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+    private boolean validar(){
+        if (this.txtRuc.getText().isEmpty()){
+            Funciones.mensajeAdvertencia(
+                    "Falta completar el campo Ruc", 
+                    Funciones.NOMBRE_SOFTWARE
+            );
+            this.txtRuc.requestFocus();
+            return false;
+        }
+        if (this.txtRazonSocial.getText().isEmpty()){
+            Funciones.mensajeAdvertencia(
+                    "Falta completar el campo Razon Social", 
+                    Funciones.NOMBRE_SOFTWARE
+            );
+            this.txtRazonSocial.requestFocus();
+            return false;
+        }
+        if (this.txtDireccion.getText().isEmpty()){
+            Funciones.mensajeAdvertencia(
+                    "Falta completar el campo Direccion", 
+                    Funciones.NOMBRE_SOFTWARE
+            );
+            this.txtDireccion.requestFocus();
+            return false;
+        }
+        if (this.txtTelefono.getText().isEmpty()){
+            Funciones.mensajeAdvertencia(
+                    "Falta completar el campo Telefono", 
+                    Funciones.NOMBRE_SOFTWARE
+            );
+            this.txtTelefono.requestFocus();
+            return false;
+        }
+        return true; //si ha pasado la validación
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnSalir;

@@ -1,12 +1,55 @@
 package presentacion;
 
+import java.awt.Dimension;
+import java.sql.ResultSet;
+import logica.Proveedor;
+import util.Funciones;
+
 public class FrmProveedorListado extends javax.swing.JInternalFrame {
 
+    public ResultSet resultado;
+    
     public FrmProveedorListado() {
         initComponents();
-        this.setLocation(250, 60);
+        cargarCamposBusqueda();
+        cargarTabla();
+        listar();
     }
-
+    
+    private void cargarCamposBusqueda(){
+        String campos[] = new Proveedor().obtenerCamposFiltro();
+        
+        cboBusqueda.removeAllItems();
+        for (int i = 0; i < campos.length; i++) {
+            cboBusqueda.addItem( campos[i] );
+        }
+    }
+    
+    private void cargarTabla(){
+        try {
+            this.resultado = new Proveedor().listar();
+        } catch (Exception e) {
+            Funciones.mensajeError(e.getMessage(), Funciones.NOMBRE_SOFTWARE);
+        }
+    }
+    
+    private void listar(){
+        try {
+            String alineacion[] = {"C","C","C","C","C"};
+            int anchoColumnas[] = {100,100,100,100,100};
+            
+            Funciones.llenarTablaBusqueda(
+                    tblListado, 
+                    resultado, //Resultset
+                    anchoColumnas, 
+                    alineacion, 
+                    this.cboBusqueda.getSelectedItem().toString(), 
+                    this.txtValorBusqueda.getText());
+            
+        } catch (Exception e) {
+            Funciones.mensajeError(e.getMessage(), Funciones.NOMBRE_SOFTWARE);
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -42,6 +85,23 @@ public class FrmProveedorListado extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         setTitle("Listado de Proveedores");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 102));
 
@@ -224,7 +284,7 @@ public class FrmProveedorListado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtValorBusquedaActionPerformed
 
     private void txtValorBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorBusquedaKeyReleased
-
+        listar();
     }//GEN-LAST:event_txtValorBusquedaKeyReleased
 
     private void txtValorBusquedaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorBusquedaKeyTyped
@@ -246,7 +306,8 @@ public class FrmProveedorListado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
-
+        this.cargarTabla();
+        this.listar();
     }//GEN-LAST:event_btnRefrescarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -258,6 +319,14 @@ public class FrmProveedorListado extends javax.swing.JInternalFrame {
             this.btnEditar.doClick();
         }
     }//GEN-LAST:event_tblListadoMouseClicked
+
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+        this.cboBusqueda.setPreferredSize( new Dimension(130, 25) );
+        this.txtValorBusqueda.setPreferredSize( new Dimension(150, 25) );
+        
+        this.tbOpciones.add(cboBusqueda, 1);
+        this.tbOpciones.add(txtValorBusqueda, 2);
+    }//GEN-LAST:event_formInternalFrameActivated
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
